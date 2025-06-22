@@ -70,16 +70,16 @@ export class Player extends Actor {
         this.runAnimationTop = Animation.fromSpriteSheet(spriteSheetRR, range(0, 7), 200);
         this.runAnimationLeft = Animation.fromSpriteSheet(spriteSheetLR, range(0, 7), 200);
         this.runAnimationRight = Animation.fromSpriteSheet(spriteSheetRR, range(0, 7), 200);
-        this.runAnimationDown = Animation.fromSpriteSheet(spriteSheetRR, range(0,7), 200);
+        this.runAnimationDown = Animation.fromSpriteSheet(spriteSheetRR, range(0, 7), 200);
         this.runAnimationRightIdle = Animation.fromSpriteSheet(spriteSheetRI, range(0, 5), 200);
         this.runAnimationTopIdle = Animation.fromSpriteSheet(spriteSheetRI, range(0, 5), 200);
-        this.runAnimationLeftIdle = Animation.fromSpriteSheet(spriteSheetLI, range(0, 5),200);
+        this.runAnimationLeftIdle = Animation.fromSpriteSheet(spriteSheetLI, range(0, 5), 200);
         this.runAnimationDownIdle = Animation.fromSpriteSheet(spriteSheetRI, range(0, 5), 200);
         this.runAnimationCharge = Animation.fromSpriteSheet(spriteSheetC, range(0, 4), 200);
         this.graphics.use(this.runAnimationCharge);
         this.currentAnimation = this.runAnimationDownIdle;
 
-            this.scale = new Vector(1.5, 1.5);
+        this.scale = new Vector(1.5, 1.5);
     }
 
     noMovementKeysHeld(engine) {
