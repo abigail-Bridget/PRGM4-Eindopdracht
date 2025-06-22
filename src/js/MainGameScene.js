@@ -1,14 +1,8 @@
 import { Scene, Vector } from 'excalibur';
 import { Resources } from './resources.js';
 import { Player } from './Player.js';
-import { RedMoonPotion } from './redMoonPotion.js';
+import { MoonPotion } from './MoonPotion.js';
 import { Score } from './score.js';
-import { PinkMoonPotion } from './PinkMoonPotion.js';
-import { PurpleMoonPotion } from './purpleMoonPotion.js';
-import { BlueMoonPotion } from './blueMoonPotion.js';
-import { BlackMoonPotion } from './blackMoonPotion.js';
-import { TurquoiseMoonPotion } from './turquoiseMoonPotion.js';
-import { YellowMoonPotion } from './yellowMoonPotion.js';
 
 export class MainGameScene extends Scene {
 
@@ -34,58 +28,39 @@ export class MainGameScene extends Scene {
         this.scorecounter.z = 999;
         this.add(this.scorecounter);
 
-        // Predefined coordinates for each type of potion with increased spacing
-        const redMoonPotionCoordinates = [
-            new Vector(96,768),
+        // Potions data: positie + kleur
+        const potionsData = [
+            { pos: new Vector(96, 768), kleur: 'red' },
+            { pos: new Vector(576, 160), kleur: 'pink' },
+            { pos: new Vector(1792, 800), kleur: 'purple' },
+            { pos: new Vector(1248, 96), kleur: 'blue' },
+            { pos: new Vector(1248, 1728), kleur: 'black' },
+            { pos: new Vector(96, 1792), kleur: 'turquoise' },
+            { pos: new Vector(640, 1088), kleur: 'yellow' },
         ];
 
-        const pinkMoonPotionCoordinates = [
-            new Vector(576, 160),
-        ];
+        // Voeg de potions toe
+        this.spawnPotions(potionsData);
 
-        const purpleMoonPotionCoordinates = [
-            new Vector(1792, 800),
-        ];
-
-        const blueMoonPotionCoordinates = [
-            new Vector(1248, 96)
-        ];
-
-        const blackMoonPotionCoordinates = [
-            new Vector(1248, 1728)
-        ];
-
-        const turquoiseMoonPotionCoordinates = [
-            new Vector(96, 1792)
-        ];
-
-        const yellowMoonPotionCoordinates = [
-            new Vector(640, 1088)
-        ];
-
+        // Voeg map toe
         Resources.Map.addToScene(this);
 
+        // Voeg speler toe
         const player = new Player(this.game);
         player.z = 8;
         player.pos = new Vector(300, 600);
         this.add(player);
 
-        this.spawnPotions(redMoonPotionCoordinates, RedMoonPotion);
-        this.spawnPotions(pinkMoonPotionCoordinates, PinkMoonPotion);
-        this.spawnPotions(purpleMoonPotionCoordinates, PurpleMoonPotion);
-        this.spawnPotions(blueMoonPotionCoordinates, BlueMoonPotion);
-        this.spawnPotions(blackMoonPotionCoordinates, BlackMoonPotion);
-        this.spawnPotions(turquoiseMoonPotionCoordinates, TurquoiseMoonPotion);
-        this.spawnPotions(yellowMoonPotionCoordinates, YellowMoonPotion);
-
+        // Camera instellen op speler
         this.updateCamera(player);
     }
 
-    spawnPotions(potionCoordinates, PotionType) {
-        potionCoordinates.forEach(coord => {
-            const potion = new PotionType(this.scorecounter);
+    // Eén functie om potions te maken en toe te voegen
+    spawnPotions(potions) {
+        potions.forEach(data => {
+            const potion = new MoonPotion(this.scorecounter, data.kleur);
             potion.z = 1;
-            potion.pos = coord.clone();
+            potion.pos = data.pos.clone();
             this.add(potion);
         });
     }
@@ -96,7 +71,7 @@ export class MainGameScene extends Scene {
     }
 }
 
-// Clamp function to restrict values within a range
+// Clamp functie (kan blijven zoals je had)
 function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
 }
